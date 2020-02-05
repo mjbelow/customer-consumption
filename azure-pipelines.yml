@@ -13,38 +13,18 @@ pool:
 
 steps:
 - task: NodeTool@0
-  displayName: 'Use Node version'
   inputs:
     versionSpec: '12.x'
+  displayName: 'Install Node.js'
 
-- task: Npm@0
-  displayName: 'Install application dependencies'
-  inputs:
-    cwd: Application
-    arguments: '--force'
+- script: npm install
+  displayName: 'Install Node Packages'
 
-- task: Npm@0
-  displayName: 'Install test dependencies'
-  inputs:
-    cwd: Tests
-    arguments: '--force'
-    
-- task: Gulp@0
-  displayName: 'Run unit tests'
-  inputs:
-    gulpFile: Tests/gulpfile.js
-    targets: unittest
-    gulpjs: 'Tests/node_modules/gulp/bin/gulp.js'
-    publishJUnitResults: true
+- script: npm run build
+  displayName: 'Build'
 
-# - script: npm install
-  # displayName: 'Install Node Packages'
-
-# - script: npm run build
-  # displayName: 'Build'
-
-# - script: npm run test
-  # displayName: 'Test'
+- script: npm run test
+  displayName: 'Test'
 
 - script: dir
 
