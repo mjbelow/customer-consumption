@@ -1,0 +1,57 @@
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger: none
+pr:
+  autoCancel: true
+  branches:
+    include:
+    - master
+
+pool:
+  vmImage: 'vs2017-win2016'
+
+steps:
+- task: NodeTool@0
+  displayName: 'Use Node version'
+  inputs:
+    versionSpec: '12.x'
+
+- task: Npm@0
+  displayName: 'Install application dependencies'
+  inputs:
+    cwd: Application
+    arguments: '--force'
+
+- task: Npm@0
+  displayName: 'Install test dependencies'
+  inputs:
+    cwd: Tests
+    arguments: '--force'
+    
+- task: Gulp@0
+  displayName: 'Run unit tests'
+  inputs:
+    gulpFile: Tests/gulpfile.js
+    targets: unittest
+    gulpjs: 'Tests/node_modules/gulp/bin/gulp.js'
+    publishJUnitResults: true
+
+# - script: npm install
+  # displayName: 'Install Node Packages'
+
+# - script: npm run build
+  # displayName: 'Build'
+
+# - script: npm run test
+  # displayName: 'Test'
+
+- script: dir
+
+- task: AzureFileCopy@3
+  inputs:
+    SourcePath: '$(System.DefaultWorkingDirectory)/dist'
+    azureSubscription: 'My Connection'
+    Destination: 'AzureBlob'
+    storage: 'kubcustomerconsumption00'
+    ContainerName: '$web'
