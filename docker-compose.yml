@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  customer-consumption-db:
+    container_name: customer-consumption-db
+    environment:
+     - ACCEPT_EULA=Y
+     - SA_PASSWORD=1Secure*Password1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+     - "5003:1433"
+  customer-consumption-api:
+    container_name: customer-consumption-api
+    environment:
+     - ConnectionStrings:DefaultConnection=Server=customer-consumption-db;Database=CustomerConsumption;User=sa;Password=1Secure*Password1;
+    build:
+      context: ./customer-consumption-api
+      dockerfile: Dockerfile
+    depends_on:
+     - customer-consumption-db
+    ports:
+     - "5001:80"
+  customer-consumption:
+    container_name: customer-consumption
+    build:
+      context: ./customer-consumption
+      dockerfile: Dockerfile
+    depends_on:
+     - customer-consumption-api
+    ports:
+     - "8080:80"
