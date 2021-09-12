@@ -1,6 +1,6 @@
-[submodule "customer-consumption"]
-	path = customer-consumption
-	url = https://github.com/knoxville-utilities-board/customer-consumption.git
+[submodule "customer-consumption-webapp"]
+	path = customer-consumption-webapp
+	url = https://github.com/mjbelow/customer-consumption-webapp.git
 [submodule "customer-consumption-api"]
 	path = customer-consumption-api
-	url = https://github.com/knoxville-utilities-board/customer-consumption-api.gi
+	url = https://github.com/mjbelow/customer-consumption-api.git

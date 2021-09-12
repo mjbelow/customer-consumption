@@ -25,10 +25,10 @@ services:
     ports:
      - "5001:80"
   webapp:
-    image: mjbelow/customer-consumption
+    image: mjbelow/customer-consumption-webapp
     container_name: customer-consumption-webapp
     build:
-      context: ./customer-consumption
+      context: ./customer-consumption-webapp
       dockerfile: Dockerfile
     depends_on:
      - api
