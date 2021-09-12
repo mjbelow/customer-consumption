@@ -3,7 +3,6 @@ version: '3.4'
 services:
   db:
     image: mjbelow/customer-consumption-db
-    container_name: customer-consumption-db
     environment:
      - ACCEPT_EULA=Y
      - SA_PASSWORD=1Secure*Password1
@@ -14,7 +13,6 @@ services:
      - "5003:1433"
   api:
     image: mjbelow/customer-consumption-api
-    container_name: customer-consumption-api
     environment:
      - ConnectionStrings:DefaultConnection=Server=db;Database=CustomerConsumption;User=sa;Password=1Secure*Password1;
     build:
@@ -26,7 +24,6 @@ services:
      - "5001:80"
   webapp:
     image: mjbelow/customer-consumption-webapp
-    container_name: customer-consumption-webapp
     build:
       context: ./customer-consumption-webapp
       dockerfile: Dockerfile
