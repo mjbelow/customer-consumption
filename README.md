@@ -1,5 +1,9 @@
 # Customer Consumption
 
+## Demo
+
+https://youtu.be/meuORfNF_Yg
+
 ## Instructions
 
 1. If changes are made in the services, following command must be run to rebuild images
