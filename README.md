@@ -10,15 +10,13 @@
 
 `docker-compose up -d`
 
-3. Run this command to restore database (Need to wait until the database is running)
+3. Wait 3 minutes for the database to start up and for data to be restored
 
-`docker exec customer-consumption-db /opt/sqlpackage/sqlpackage /a:Import /sf:db.bacpac /tdn:CustomerConsumption /tsn:localhost /tu:sa /tp:1Secure*Password1`
-
-4. [http://localhost:8080/](http://localhost:8080/)
+4. http://localhost:4200/
 
 ## Ports
 
-Web App: 8080
+Web App: 4200
 
 API: 5001
 
